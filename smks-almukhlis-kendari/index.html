@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMKS Al-Mukhlis</title>
+
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://unpkg.com/feather-icons"></script>
+  </head>
+  <body>
+    <!-- <running-text> -->
+    <div class="top-marquee" role="region" aria-label="Pengumuman sekolah">
+      <div class="marquee-track" aria-hidden="false">
+        <span class="marquee-text"
+          >Selamat Datang di SMKS AL-MUKHLIS KENDARI. &nbsp;&nbsp;</span
+        >
+        <span class="marquee-text"
+          >Sekolah Berbasis Pesantren. Wujudkan 29 Karakter! &nbsp;&nbsp;</span
+        >
+
+        <span class="marquee-text"
+          >Pengumuman: Pendaftaran siswa baru dibuka. Kunjungi halaman Jurusan
+          untuk informasi lebih lanjut. &nbsp;&nbsp;</span
+        >
+      </div>
+    </div>
+    <!-- <running-text-end> -->
+
+    <!-- Header - Navigation -->
+    <header class="navbar">
+      <a href="#home" class="logo-navbar">
+        <img src="img/Logo.png" alt="SMKS Al-Mukhlis Logo" />
+        <div class="brand-text">
+          <span class="brand-name">SMKS AL‑MUKHLIS KENDARI</span>
+          <small class="brand-tagline"
+            >Unggul dalam Prestasi, Berkarakter Islami</small
+          >
+        </div>
+      </a>
+      <nav class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#rss">News</a>
+        <a href="#jurusan">Jurusan</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="pengumuman.html">Pengumuman Kelulusan</a>
+      </nav>
+
+      <nav-xtra class="navbar-xtra">
+        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </nav-xtra>
+    </header>
+    <!-- Header - End of Navigation -->
+
+    <!-- main -->
+    <main>
+      <article class="content" id="home">
+        <div class="content-decription">
+          <h1>Selamat Datang di <span>SMKS AL-MUKHLIS</span></h1>
+          <p>Membentuk Generasi Unggul dan Berakhlak Mulia.</p>
+
+          <a href="#jurusan"> <button>Daftar</button> </a>
+
+          <!-- <a href="#layanan" class="cta">Daftarkan Pasien</a> -->
+        </div>
+        <img src="img/undraw_education_3vwh.svg" />
+      </article>
+
+      <!-- RSS Feed Section -->
+      <section class="rss-section" id="rss">
+        <div class="content-menu">
+          <h2>News</h2>
+          <p>Dapatkan informasi terbaru dari kami.</p>
+
+          <div class="rss-controls">
+            <input
+              type="text"
+              id="rss-url"
+              value="https://kreastudioroom.blogspot.com/feeds/posts/default?alt=rss"
+              disabled
+            />
+            <button id="load-rss" disabled>Muat Feed</button>
+          </div>
+
+          <div class="rss-samples" aria-hidden="true">
+            <!-- single-source mode: keep only kreastudioroom (hidden) -->
+            <button
+              class="rss-sample"
+              data-feed="https://kreastudioroom.blogspot.com/feeds/posts/default?alt=rss"
+            >
+              kreastudioroom
+            </button>
+          </div>
+
+          <div id="rss-container" class="rss-container"></div>
+        </div>
+      </section>
+
+      <article class="content-menu" id="jurusan">
+        <h2>Jurusan</h2>
+        <p>Pilih jurusan yang tersedia di sekolah kami.</p>
+        <article class="jurusan">
+          <div class="menu-card" tabindex="0">
+            <img
+              src="https://images.pexels.com/photos/918283/pexels-photo-918283.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="TJKT"
+              class="menu-card-img"
+            />
+            <h3 class="menu-card-title">TJKT</h3>
+            <p class="menu-card-desc">
+              Teknik Jaringan dan Komputer - fokus pada instalasi, konfigurasi,
+              dan pemeliharaan jaringan serta dasar administrasi server.
+            </p>
+            <button>Pilih Jurusan</button>
+          </div>
+          <div class="menu-card" tabindex="0">
+            <img
+              src="https://images.pexels.com/photos/31906432/pexels-photo-31906432/free-photo-of-seniman-membuat-sketsa-di-luar-ruangan-dengan-spidol-dan-gambar.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="DKV"
+              class="menu-card-img"
+            />
+            <h3 class="menu-card-title">DKV</h3>
+            <p class="menu-card-desc">
+              Desain Komunikasi Visual - pelatihan desain grafis, ilustrasi,
+              tipografi, dan branding untuk produksi kreatif.
+            </p>
+            <button>Pilih Jurusan</button>
+          </div>
+          <div class="menu-card" tabindex="0">
+            <img
+              src="https://images.pexels.com/photos/20680033/pexels-photo-20680033/free-photo-of-cahaya-sinar-biru-kendaraan.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="TSM"
+              class="menu-card-img"
+            />
+            <h3 class="menu-card-title">TSM</h3>
+            <p class="menu-card-desc">
+              Teknik Sepeda Motor - pembelajaran mekanika, perawatan, dan
+              diagnosa kendaraan bermotor roda dua.
+            </p>
+            <button>Pilih Jurusan</button>
+          </div>
+          <div class="menu-card" tabindex="0">
+            <img
+              src="https://images.pexels.com/photos/28957620/pexels-photo-28957620/free-photo-of-one-world-trade-center-di-senja-di-nyc.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="DPIB"
+              class="menu-card-img"
+            />
+            <h3 class="menu-card-title">DPIB</h3>
+            <p class="menu-card-desc">
+              Desain dan Produksi Industri Bisnis - keterampilan produksi,
+              manajemen usaha kecil, dan kewirausahaan.
+            </p>
+            <button>Pilih Jurusan</button>
+          </div>
+        </article>
+
+        <!-- aside -->
+        <aside>
+          <article class="content-about" id="about">
+            <h2>Tentang SMKS Al-Mukhlis</h2>
+            <div class="about">
+              <section class="about-info">
+                <p>
+                  SMKS Al-Mukhlis Sekolah Menengah Kejuruan yang berkomitmen
+                  membentuk lulusan siap kerja dan berjiwa wirausaha.
+                </p>
+
+                <div class="about-cards">
+                  <div class="about-card blue">
+                    <h4>Guru &amp; Tenaga Pendidik</h4>
+                    <p class="stat">35 Orang</p>
+                  </div>
+                  <div class="about-card blue">
+                    <h4>Program Keahlian</h4>
+                    <p class="stat">4 Program</p>
+                  </div>
+                  <div class="about-card blue">
+                    <h4>Siswa Aktif</h4>
+                    <p class="stat">450 Siswa</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </article>
+        </aside>
+      </article>
+    </main>
+
+    <!-- <main-end> -->
+
+    <!-- footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-address">
+            <strong>Alamat:</strong>
+            <address>
+              Lrg. Musafir, Lepo-Lepo, Kec. Baruga, Kota Kendari, Sulawesi
+              Tenggara 93117, Indonesia
+            </address>
+          </div>
+
+          <div class="footer-socials">
+            <a
+              href="https://instagram.com/your_school_account"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-feather="instagram"></i>
+            </a>
+            <a
+              href="https://facebook.com/your_school_account"
+              aria-label="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-feather="facebook"></i>
+            </a>
+            <a
+              href="https://twitter.com/your_school_account"
+              aria-label="Twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-feather="twitter"></i>
+            </a>
+            <a href="mailto:info@smks-almukhlis.sch.id" aria-label="Email">
+              <i data-feather="mail"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-copy">
+          <p>
+            &copy; <span id="current-year">2025</span> SMKS Al‑Mukhlis. All
+            rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- footer end -->
+
+    <button
+      id="scroll-top"
+      class="scroll-top"
+      aria-label="Scroll to top"
+      title="Ke atas"
+    >
+      <i data-feather="arrow-up"></i>
+    </button>
+
+    <script>
+      feather.replace();
+    </script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pengumuman Kelulusan - SMKS Al-Mukhlis</title>
+
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://unpkg.com/feather-icons"></script>
+  </head>
+  <body>
+    <!-- <running-text> -->
+    <div class="top-marquee" role="region" aria-label="Pengumuman sekolah">
+      <div class="marquee-track" aria-hidden="false">
+        <span class="marquee-text"
+          >Selamat Datang di SMKS AL-MUKHLIS KENDARI. &nbsp;&nbsp;</span
+        >
+        <span class="marquee-text"
+          >Sekolah Berbasis Pesantren. Wujudkan 29 Karakter! &nbsp;&nbsp;</span
+        >
+
+        <span class="marquee-text"
+          >Pengumuman: Pendaftaran siswa baru dibuka. Kunjungi halaman Jurusan
+          untuk informasi lebih lanjut. &nbsp;&nbsp;</span
+        >
+      </div>
+    </div>
+    <!-- <running-text-end> -->
+    <!-- Header - Navigation -->
+    <header class="navbar">
+      <a href="index.html" class="logo-navbar">
+        <img src="img/Logo.png" alt="SMKS Al-Mukhlis Logo" />
+        <div class="brand-text">
+          <span class="brand-name">SMKS AL‑MUKHLIS KENDARI</span>
+          <small class="brand-tagline"
+            >Unggul dalam Prestasi, Berkarakter Islami</small
+          >
+        </div>
+      </a>
+      <nav class="navbar-nav">
+        <a href="index.html">Home</a>
+        <a href="#rss">News</a>
+        <a href="#jurusan">Jurusan</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="pengumuman.html">Pengumuman Kelulusan</a>
+      </nav>
+
+      <nav-xtra class="navbar-xtra">
+        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </nav-xtra>
+    </header>
+    <!-- Header - End of Navigation -->
+
+    <main>
+      <section class="content-menu announce-page" style="padding-top: 140px">
+        <h2>Pengumuman Kelulusan - Kelas XII</h2>
+        <p>Masukkan NISN Anda untuk melihat pengumuman kelulusan.</p>
+
+        <form
+          id="cek-form"
+          class="announce-form"
+          aria-describedby="announce-desc"
+        >
+          <label for="nisn">NISN (tanpa spasi):</label>
+          <input
+            id="nisn"
+            name="nisn"
+            type="text"
+            inputmode="numeric"
+            pattern="\d{5,20}"
+            placeholder="Contoh: 1234567890"
+            required
+          />
+          <button type="submit">Cek Pengumuman</button>
+        </form>
+
+        <div
+          id="announce-result"
+          class="announce-result"
+          aria-live="polite"
+        ></div>
+      </section>
+    </main>
+
+    <!-- footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-address">
+            <strong>Alamat:</strong>
+            <address>
+              Lrg. Musafir, Lepo-Lepo, Kec. Baruga, Kota Kendari, Sulawesi
+              Tenggara 93117, Indonesia
+            </address>
+          </div>
+
+          <div class="footer-socials">
+            <a
+              href="https://instagram.com/your_school_account"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-feather="instagram"></i>
+            </a>
+            <a
+              href="https://facebook.com/your_school_account"
+              aria-label="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-feather="facebook"></i>
+            </a>
+            <a
+              href="https://twitter.com/your_school_account"
+              aria-label="Twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-feather="twitter"></i>
+            </a>
+            <a href="mailto:info@smks-almukhlis.sch.id" aria-label="Email">
+              <i data-feather="mail"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-copy">
+          <p>
+            &copy; <span id="current-year">2025</span> SMKS Al‑Mukhlis. All
+            rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- footer end -->
+
+    <script>
+      feather.replace();
+    </script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
