@@ -325,7 +325,7 @@ main img {
 
 /* home End */
 
-/* layanan */
+/* jurusan */
 
 .content-menu,
 .content-about {
@@ -418,7 +418,7 @@ main img {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 8px 20px rgba(10, 110, 189, 0.12);
 }
-/* layanan End */
+/* jurusan End */
 
 /* about me */
 main aside .content-about .about {
@@ -664,11 +664,11 @@ footer .credit a {
     padding: 2.2rem 5% 1.2rem;
   }
 
-  .content-menu .layanan .menu-card-title {
+  .content-menu .jurusan .menu-card-title {
     font-size: 1.4rem;
   }
 
-  .content-menu .layanan .menu-card button {
+  .content-menu .jurusan .menu-card button {
     font-size: 1.3rem;
   }
 
@@ -703,7 +703,7 @@ footer .credit a {
     gap: 1rem;
   }
 
-  .content-menu .layanan .menu-card img {
+  .content-menu .jurusan .menu-card img {
     max-width: 100%;
     height: 160px;
   }
