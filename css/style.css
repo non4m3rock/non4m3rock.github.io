@@ -698,7 +698,7 @@ footer .credit a {
   }
 
   /* jurusan grid becomes single column on smaller screens */
-  .content-menu .layanan {
+  .content-menu .jurusan {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
