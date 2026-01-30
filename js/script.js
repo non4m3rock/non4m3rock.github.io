@@ -318,6 +318,24 @@ function normalizeFeedUrl(feed) {
   }
 })();
 
+/* Page loader hide on window load */
+(function () {
+  try {
+    const loader = document.getElementById('siteLoader');
+    if (!loader) return;
+    // Wait for full load (including images); then fade out
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        // remove from DOM after transition
+        setTimeout(() => loader.remove(), 500);
+      }, 400); // small delay so moment-like effect is visible
+    });
+  } catch (err) {
+    console.warn('Loader init failed', err);
+  }
+})();
+
 // Dataset - replace with real integration when available
 const PASS_LIST = new Set([
   '1234567890',
