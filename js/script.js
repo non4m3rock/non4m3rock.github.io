@@ -130,7 +130,7 @@ function parseAndExtract(xmlText) {
       }
       if (!image) {
         const imgMatch = (description || '').match(
-          /<img[^>]+src=["']?([^"'>\s]+)/i
+          /<img[^>]+src=["']?([^"'>\s]+)/i,
         );
         if (imgMatch) image = imgMatch[1];
       }
@@ -163,7 +163,7 @@ function parseAndExtract(xmlText) {
         image = mediaThumb.getAttribute('url') || '';
       if (!image) {
         const imgMatch = (description || '').match(
-          /<img[^>]+src=["']?([^"'>\s]+)/i
+          /<img[^>]+src=["']?([^"'>\s]+)/i,
         );
         if (imgMatch) image = imgMatch[1];
       }
@@ -298,6 +298,26 @@ function normalizeFeedUrl(feed) {
   }
 })();
 
+/* Navbar glass toggle on scroll */
+(function () {
+  try {
+    const header = document.querySelector('header.navbar');
+    if (!header) return;
+    const THRESHOLD = 48; // px scrolled before applying glass
+
+    const onScroll = () => {
+      if (window.scrollY > THRESHOLD) header.classList.add('glass');
+      else header.classList.remove('glass');
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // initial state
+    onScroll();
+  } catch (err) {
+    console.warn('Navbar glass init failed', err);
+  }
+})();
+
 // Dataset - replace with real integration when available
 const PASS_LIST = new Set([
   '1234567890',
@@ -335,3 +355,75 @@ form.addEventListener('submit', (e) => {
       '<p class="result unknown">Data NISN Anda <strong>TIDAK DITEMUKAN</strong>, Silahkan hubungi admin sekolah 😇.</p>';
   }
 });
+
+/* Testimonials slider behavior */
+(function () {
+  try {
+    const track = document.getElementById('testimonialsTrack');
+    const prevBtn = document.getElementById('prevTesti');
+    const nextBtn = document.getElementById('nextTesti');
+    const dotsWrap = document.getElementById('testiDots');
+    if (!track) return;
+
+    const cards = Array.from(track.querySelectorAll('.testimonial-card'));
+    let activeIndex = 0;
+    const cardWidth = () => cards[0]?.getBoundingClientRect().width || 320;
+
+    function updateDots() {
+      if (!dotsWrap) return;
+      dotsWrap.innerHTML = '';
+      cards.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.classList.toggle('active', i === activeIndex);
+        btn.addEventListener('click', () => scrollToIndex(i));
+        dotsWrap.appendChild(btn);
+      });
+    }
+
+    function scrollToIndex(i) {
+      activeIndex = i;
+      track.scrollTo({ left: i * (cardWidth() + 16), behavior: 'smooth' });
+      updateDots();
+    }
+
+    if (prevBtn)
+      prevBtn.addEventListener('click', () =>
+        scrollToIndex(Math.max(0, activeIndex - 1)),
+      );
+    if (nextBtn)
+      nextBtn.addEventListener('click', () =>
+        scrollToIndex(Math.min(cards.length - 1, activeIndex + 1)),
+      );
+
+    // update active based on scroll position
+    let scrollTimeout;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const idx = Math.round(track.scrollLeft / (cardWidth() + 16));
+        activeIndex = Math.min(cards.length - 1, Math.max(0, idx));
+        updateDots();
+      }, 120);
+    });
+
+    // init
+    updateDots();
+
+    // autoplay: advance every 5s
+    let autoplay = setInterval(() => {
+      activeIndex = activeIndex + 1 < cards.length ? activeIndex + 1 : 0;
+      scrollToIndex(activeIndex);
+    }, 5000);
+
+    // pause on hover
+    track.addEventListener('mouseenter', () => clearInterval(autoplay));
+    track.addEventListener('mouseleave', () => {
+      autoplay = setInterval(() => {
+        activeIndex = activeIndex + 1 < cards.length ? activeIndex + 1 : 0;
+        scrollToIndex(activeIndex);
+      }, 5000);
+    });
+  } catch (err) {
+    console.warn('Testimonials init failed', err);
+  }
+})();
