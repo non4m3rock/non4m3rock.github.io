@@ -539,6 +539,7 @@ main aside .content-about .about {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   color: #131313;
+  margin-top: 2rem;
   box-shadow: 0 10px 30px rgba(10, 110, 189, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.35);
 }
@@ -606,6 +607,11 @@ main aside .content-about .about {
   text-align: right;
   font-weight: 800;
   margin-top: 1rem;
+}
+.principal-greeting .about-card .principal-namesmall {
+  text-align: right;
+  font-weight: 400;
+  margin-top: 0.1rem;
 }
 
 @media (max-width: 768px) {
