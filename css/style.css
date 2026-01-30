@@ -14,6 +14,9 @@ html {
 :root {
   /* height reserved for the running text bar above the navbar */
   --marquee-height: 36px;
+  /* brand colors */
+  --brand-blue: #0a6ebd;
+  --brand-yellow: #f3df04;
 }
 
 body {
@@ -29,7 +32,11 @@ header.navbar {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 6%;
-  background: linear-gradient(90deg, #f3df04 0%, #0a6ebd 100%);
+  background: linear-gradient(
+    90deg,
+    var(--brand-yellow) 0%,
+    var(--brand-blue) 100%
+  );
   position: fixed;
   top: var(--marquee-height);
   left: 0;
@@ -61,7 +68,7 @@ header.navbar .logo-navbar {
 .brand-name {
   font-weight: 700;
   font-size: 1.05rem;
-  color: #2d3133;
+  color: var(--brand-blue);
 }
 .brand-tagline {
   font-size: 0.75rem;
@@ -306,14 +313,14 @@ main .content a button {
   color: #ffffff;
   border: 3px solid transparent;
   border-radius: 50px;
-  background-color: #2d3133;
+  background-color: var(--brand-blue);
   cursor: pointer;
   transition: all 0.15s ease-in;
 }
 
 main .content a button:hover {
-  border: 3px solid #2d3133;
-  color: #2d3133;
+  border: 3px solid var(--brand-blue);
+  color: var(--brand-blue);
   background-color: transparent;
 }
 
@@ -512,7 +519,7 @@ main aside .content-about .about {
 .about-card:focus {
   transform: translateY(-10px) scale(1.03);
   box-shadow: 0 22px 48px rgba(10, 110, 189, 0.18);
-  border-color: rgba(161, 194, 241, 0.16);
+  border-color: rgba(10, 110, 189, 0.16);
 }
 
 .about-card:active {
@@ -525,20 +532,60 @@ main aside .content-about .about {
 
 /* Principal greeting: white card variant, keeps existing card behavior */
 .principal-greeting .about-card {
-  background: #f3df04;
+  /* glass card base */
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.52);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   color: #131313;
-  box-shadow: 0 8px 22px rgba(10, 110, 189, 0.06);
-  border: 1px solid rgba(45, 49, 51, 0.06);
+  box-shadow: 0 10px 30px rgba(10, 110, 189, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+.principal-greeting .about-card::before {
+  /* animated gradient overlay (yellow -> blue) */
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(
+    90deg,
+    rgba(243, 223, 4, 0.55) 0%,
+    rgba(10, 110, 189, 0.18) 50%,
+    rgba(243, 223, 4, 0.45) 100%
+  );
+  background-size: 200% 200%;
+  opacity: 0.9;
+  transform: translate3d(0, 0, 0);
+  z-index: 0;
+  animation: principalGradient 10s linear infinite;
+  mix-blend-mode: overlay;
 }
 .principal-greeting .about-card h4 {
   color: #131313;
   margin-bottom: 0.6rem;
   padding-bottom: 0;
   border-bottom: none;
+  position: relative;
+  z-index: 2;
 }
 .principal-greeting .about-card p {
   color: #131313;
-  line-height: 1.5;
+  text-align: justify;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes principalGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 .principal-greeting .about-card::after {
   content: '';
@@ -546,12 +593,25 @@ main aside .content-about .about {
   clear: both;
 }
 .principal-img {
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 350px;
+  margin-right: 1.2rem;
   object-fit: cover;
   border-radius: 8px;
   float: left;
-  margin-right: 1rem;
+}
+
+/* stronger specificity to override container text-align on small screens */
+.principal-greeting .about-card .principal-name {
+  text-align: right;
+  font-weight: 800;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .principal-greeting .about-card .principal-name {
+    text-align: right !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -560,7 +620,7 @@ main aside .content-about .about {
     display: block;
     margin: 0 auto 1rem;
     width: 160px;
-    height: 160px;
+    height: 300px;
   }
 }
 
@@ -586,6 +646,7 @@ header.navbar.glass .navbar-nav a {
 header.navbar.glass .navbar-xtra a {
   color: #2d3133;
 }
+
 header.navbar.glass .logo-navbar img {
   /* keep logo sizing unchanged */
 }
@@ -754,6 +815,15 @@ footer .credit a {
 
   .content-menu .jurusan .menu-card button {
     font-size: 1.3rem;
+  }
+
+  /* Increase brand name size on mobile for better visibility */
+  header.navbar .brand-name {
+    font-size: 1.4rem;
+    line-height: 1.1;
+  }
+  header.navbar .brand-tagline {
+    font-size: 0.85rem;
   }
 
   main aside .content-about section {
