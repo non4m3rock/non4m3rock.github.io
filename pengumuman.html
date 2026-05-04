@@ -79,14 +79,30 @@
             placeholder="Contoh: 1234567890"
             required
           />
-          <button type="submit">Cek Pengumuman</button>
+          <button
+            id="cek-btn"
+            type="submit"
+            aria-live="polite"
+            aria-busy="false"
+          >
+            <span class="btn-text">Cek Pengumuman</span>
+          </button>
         </form>
 
-        <div
-          id="announce-result"
-          class="announce-result"
-          aria-live="polite"
-        ></div>
+        <div id="announce-result" class="announce-result" aria-live="polite">
+          <div
+            class="announce-spinner"
+            id="announce-spinner"
+            aria-hidden="true"
+          >
+            <div class="bounce-dots" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="announce-text" id="announce-text"></div>
+        </div>
       </section>
     </main>
 

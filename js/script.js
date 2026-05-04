@@ -409,36 +409,65 @@ const STUDENT_INFO = {
 const form = document.getElementById('cek-form');
 const nisnInput = document.getElementById('nisn');
 const result = document.getElementById('announce-result');
+const announceSpinner = document.getElementById('announce-spinner');
+const announceText = document.getElementById('announce-text');
 const yearEl = document.getElementById('current-year-announce');
+const cekBtn = document.getElementById('cek-btn');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const raw = (nisnInput.value || '').trim();
   const nisn = raw.replace(/\s+/g, '');
+
   if (!/^[0-9]{5,20}$/.test(nisn)) {
     result.innerHTML =
       '<p class="result warn">NISN tidak valid. Mohon masukkan angka saja (5-20 digit).</p>';
     return;
   }
 
-  const info = STUDENT_INFO[nisn];
-  const infoHtml = info
-    ? `<p class="student-name">Nama: <strong>${info.name}</strong></p><p class="student-major">Jurusan: <strong>${info.major}</strong></p>`
-    : '';
-
-  // Lookup sets + include student info when available
-  if (PASS_LIST.has(nisn)) {
-    result.innerHTML = `${infoHtml}<p class="result pass">Selamat Anda — <strong>LULUS</strong>. Semoga Aman, Selamat dan Lancar Barokah yah 😊.</p>`;
-  } else if (FAIL_LIST.has(nisn)) {
-    result.innerHTML = `${infoHtml}<p class="result fail">Maaf Anda — <strong>TIDAK LULUS</strong> 🙏🏾.</p>`;
-  } else if (info) {
-    // Student found but no pass/fail status recorded
-    result.innerHTML = `${infoHtml}<p class="result unknown">Status kelulusan belum tersedia. Silahkan hubungi admin sekolah.</p>`;
-  } else {
-    result.innerHTML =
-      '<p class="result unknown">Data NISN Anda <strong>TIDAK DITEMUKAN</strong>, Silahkan hubungi admin sekolah 😇.</p>';
+  // disable button and show centered spinner in result area
+  if (cekBtn) {
+    cekBtn.disabled = true;
+    cekBtn.setAttribute('aria-busy', 'true');
   }
+  if (result) {
+    result.classList.add('loading');
+    if (announceSpinner) announceSpinner.setAttribute('aria-hidden', 'false');
+  }
+  if (announceText) announceText.innerHTML = '';
+
+  // simulate lookup delay so spinner is visible
+  setTimeout(() => {
+    const info = STUDENT_INFO[nisn];
+    const infoHtml = info
+      ? `<p class="student-name">Nama: <strong>${info.name}</strong></p><p class="student-major">Jurusan: <strong>${info.major}</strong></p>`
+      : '';
+
+    let outHtml = '';
+    if (PASS_LIST.has(nisn)) {
+      outHtml = `${infoHtml}<p class="result pass">Selamat Anda — <strong>LULUS</strong>. Semoga Aman, Selamat dan Lancar Barokah yah 😊.</p>`;
+    } else if (FAIL_LIST.has(nisn)) {
+      outHtml = `${infoHtml}<p class="result fail">Maaf Anda — <strong>TIDAK LULUS</strong> 🙏🏾.</p>`;
+    } else if (info) {
+      outHtml = `${infoHtml}<p class="result unknown">Status kelulusan belum tersedia. Silahkan hubungi admin sekolah.</p>`;
+    } else {
+      outHtml =
+        '<p class="result unknown">Data NISN Anda <strong>TIDAK DITEMUKAN</strong>, Silahkan hubungi admin sekolah 😇.</p>';
+    }
+
+    // place result into announce-text and hide spinner
+    if (announceText) announceText.innerHTML = outHtml;
+    if (result) {
+      result.classList.remove('loading');
+      if (announceSpinner) announceSpinner.setAttribute('aria-hidden', 'true');
+    }
+
+    if (cekBtn) {
+      cekBtn.disabled = false;
+      cekBtn.setAttribute('aria-busy', 'false');
+    }
+  }, 1400);
 });
 
 /* Testimonials slider behavior */
