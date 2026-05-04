@@ -338,7 +338,6 @@ function normalizeFeedUrl(feed) {
 
 // Dataset - replace with real integration when available
 const PASS_LIST = new Set([
-  '1234567890',
   '0096182577',
   '0081456273',
   '0078399954',
