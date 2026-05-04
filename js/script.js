@@ -328,8 +328,8 @@ function normalizeFeedUrl(feed) {
       setTimeout(() => {
         loader.classList.add('hidden');
         // remove from DOM after transition
-        setTimeout(() => loader.remove(), 500);
-      }, 400); // small delay so moment-like effect is visible
+        setTimeout(() => loader.remove(), 200);
+      }, 100); // small delay so moment-like effect is visible (shortened)
     });
   } catch (err) {
     console.warn('Loader init failed', err);
@@ -339,11 +339,73 @@ function normalizeFeedUrl(feed) {
 // Dataset - replace with real integration when available
 const PASS_LIST = new Set([
   '1234567890',
-  '202300001',
-  '202300002',
-  '202300010',
+  '0096182577',
+  '0081456273',
+  '0078399954',
+  '0081981716',
+  '0099476706',
+  '0086178321',
+  '0078110719',
+  '0073570912',
+  '0088394392',
+  '0082983249',
+  '0081716239',
+  '0082911315',
+  '0083288355',
+  '0085295788',
+  '0084762488',
+  '0088451876',
+  '0079149197',
+  '0081843363',
+  '0089486580',
+  '3077842382',
+  '0076767989',
+  '0089075166',
+  '0087504309',
+  '0087444716',
+  '0085962627',
+  '0085077101',
+  '0085325367',
+  '0076454751',
+  '0087068051',
 ]);
 const FAIL_LIST = new Set(['202300100', '202300101']);
+
+// Optional student info lookup (NISN -> name, major).
+// Fill in real data as available. If a NISN exists in PASS/FAIL lists
+// but is not in this map, the UI will show status but no name/major.
+const STUDENT_INFO = {
+  '0096182577': { name: 'Aurel Musdalifah', major: 'TKJ' },
+  '0081456273': { name: 'Muh. Roihan', major: 'TKJ' },
+  '0078399954': { name: 'Muh. Ridho Anshorudin', major: 'TKJ' },
+  '0081981716': { name: 'Rorokun Nadhiva Maryam', major: 'TKJ' },
+  '0099476706': { name: 'Gilang Fabriano', major: 'TKJ' },
+  '0086178321': { name: 'Aulia Nour Anjani', major: 'TKJ' },
+  '0078110719': { name: 'Alan Bahtiar Dapit', major: 'TKJ' },
+  '0073570912': { name: 'Andi Saifullah', major: 'TKJ' },
+  '0088394392': { name: 'Gina Nur Afifah', major: 'TKJ' },
+  '0082983249': { name: 'Rifqi Azifah Azka Fadhilla', major: 'TKJ' },
+  '0081716239': { name: 'Revi Airin', major: 'TKJ' },
+  '0082911315': { name: 'Magfirah Mutiara Pidani', major: 'TKJ' },
+  '0083288355': { name: 'Jamung Istima Maulani', major: 'TKJ' },
+  '0085295788': { name: 'Muh Adrian', major: 'TKJ' },
+  '0084762488': { name: 'Nur Hidayah', major: 'TKJ' },
+  '0088451876': { name: 'Zahra Yusrinnisa Agustin', major: 'TKJ' },
+  '0079149197': { name: 'Hurin Ain Wibawati', major: 'TKJ' },
+  '0081843363': { name: 'Dewi Kusuma Ningrum', major: 'TKJ' },
+  '0089486580': { name: 'Reva Aulia Chariza', major: 'TKJ' },
+  3077842382: { name: 'Khoirun Nisa', major: 'TKJ' },
+  '0076767989': { name: 'Muh. Hidhir Saiful Ahyar', major: 'TKJ' },
+  '0089075166': { name: 'Andi Alvina Fauziani A', major: 'TKJ' },
+  '0087504309': { name: 'Aurel Juliantika', major: 'TKJ' },
+  '0087444716': { name: 'Manshurrin', major: 'TKJ' },
+  '0085962627': { name: 'Ainun Jariah', major: 'TKJ' },
+  '0085077101': { name: 'Fadli Riviansyah', major: 'TSM' },
+  '0085325367': { name: 'Fahri Isnan Hafid', major: 'TSM' },
+  '0076454751': { name: 'Nicky Mulya Firdaus D', major: 'TSM' },
+  '0087068051': { name: 'Muh. Nauval Aqilah Bambang', major: 'TSM' },
+  // add more mappings here
+};
 
 const form = document.getElementById('cek-form');
 const nisnInput = document.getElementById('nisn');
@@ -361,13 +423,19 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  // Lookup sets
+  const info = STUDENT_INFO[nisn];
+  const infoHtml = info
+    ? `<p class="student-name">Nama: <strong>${info.name}</strong></p><p class="student-major">Jurusan: <strong>${info.major}</strong></p>`
+    : '';
+
+  // Lookup sets + include student info when available
   if (PASS_LIST.has(nisn)) {
-    result.innerHTML =
-      '<p class="result pass">Selamat Anda — <strong>LULUS</strong>. Semoga Aman, Selamat dan Lancar Barokah yah 😊.</p>';
+    result.innerHTML = `${infoHtml}<p class="result pass">Selamat Anda — <strong>LULUS</strong>. Semoga Aman, Selamat dan Lancar Barokah yah 😊.</p>`;
   } else if (FAIL_LIST.has(nisn)) {
-    result.innerHTML =
-      '<p class="result fail">Maaf Anda — <strong>TIDAK LULUS</strong> 🙏🏾.</p>';
+    result.innerHTML = `${infoHtml}<p class="result fail">Maaf Anda — <strong>TIDAK LULUS</strong> 🙏🏾.</p>`;
+  } else if (info) {
+    // Student found but no pass/fail status recorded
+    result.innerHTML = `${infoHtml}<p class="result unknown">Status kelulusan belum tersedia. Silahkan hubungi admin sekolah.</p>`;
   } else {
     result.innerHTML =
       '<p class="result unknown">Data NISN Anda <strong>TIDAK DITEMUKAN</strong>, Silahkan hubungi admin sekolah 😇.</p>';
