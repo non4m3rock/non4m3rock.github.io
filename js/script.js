@@ -198,6 +198,108 @@ document.addEventListener('DOMContentLoaded', () => {
   loadRSS(DEFAULT_FEED);
 });
 
+/* Page transition overlay and navigation animation
+   - creates a full-screen overlay that fades out on load
+   - intercepts navbar link clicks, fades overlay in, then navigates
+*/
+(function () {
+  try {
+    const TRANS_MS = 450; // must match CSS transition (ms)
+
+    function createOverlay(variant = 'index') {
+      let o = document.getElementById('page-overlay');
+      if (o) return o;
+      o = document.createElement('div');
+      o.id = 'page-overlay';
+      o.className = 'page-overlay';
+
+      // variant-specific skeletons: 'index' or 'pengumuman'
+      // inject music-bar style overlay instead of skeleton
+      if (variant === 'pengumuman') {
+        o.innerHTML = `
+          <div class="overlay-music" role="status" aria-hidden="true">
+            <div class="music-title"></div>
+            <div class="music-bars" aria-hidden="true">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+            <div class="music-title" style="width:40%;height:12px;border-radius:6px;"></div>
+          </div>
+        `;
+      } else {
+        o.innerHTML = `
+          <div class="overlay-music" role="status" aria-hidden="true">
+            <div class="music-title"></div>
+            <div class="music-bars" aria-hidden="true">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+            <div class="music-title" style="width:80%;height:12px;border-radius:6px;"></div>
+          </div>
+        `;
+      }
+
+      document.body.appendChild(o);
+      return o;
+    }
+
+    const overlay = createOverlay();
+
+    // On initial load: fade overlay out to reveal page
+    requestAnimationFrame(() => {
+      // small delay to ensure overlay is rendered before transition
+      setTimeout(() => {
+        overlay.classList.add('overlay-hidden');
+        // remove overlay from DOM after transition ends to avoid blocking
+        const onEnd = () => {
+          overlay.remove();
+          overlay.removeEventListener('transitionend', onEnd);
+        };
+        overlay.addEventListener('transitionend', onEnd);
+      }, 20);
+    });
+
+    // Intercept header navbar links and animate overlay before navigating
+    const navSelector = 'header.navbar a[href]:not([target])';
+    const navLinks = document.querySelectorAll(navSelector);
+    navLinks.forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+
+        // ignore same-page anchors, mailto, and external absolute URLs
+        if (
+          href.startsWith('#') ||
+          href.startsWith('mailto:') ||
+          /^https?:\/\//.test(href)
+        )
+          return;
+
+        e.preventDefault();
+
+        // ensure overlay exists and is visible
+        let ov = document.getElementById('page-overlay');
+        if (!ov) ov = createOverlay();
+        // append again (in case it was removed) and force visible
+        document.body.appendChild(ov);
+        // ensure visible state (remove hidden class)
+        ov.classList.remove('overlay-hidden');
+
+        // wait for the overlay to paint, then navigate after transition duration
+        setTimeout(() => (window.location.href = href), TRANS_MS);
+      });
+    });
+  } catch (err) {
+    console.warn('Page transition init failed', err);
+  }
+})();
+
 if (loadRssBtn) {
   loadRssBtn.addEventListener('click', () => {
     const url = rssUrlInput?.value?.trim();
